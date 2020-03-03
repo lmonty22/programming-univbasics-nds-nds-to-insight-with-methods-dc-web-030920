@@ -6,48 +6,63 @@ require 'directors_database'
 # using director_data as input
 
 
-pp directors_database
- 
+# def gross_for_director(director_data)
+#   movie_index = 0 
+#   d_gross = 0 
+#   while movie_index < director_data[:movies].length do 
+#       d_gross += director_data[:movies][movie_index][:worldwide_gross]
+#       movie_index += 1 
+#   end 
+#   d_gross
+# end
+
 def gross_for_director(director_data)
-  gross = 0
-  movie_index = 0
-  while movie_index < director_data[:movies].length do
-    gross += director_data[:movies][movie_index][:worldwide_gross]
-    movie_index += 1
-  end
-  gross
-end
+  d_gross = 0 
+  director_data[:movies].each do |movie|
+    d_gross += movie[:worldwide_gross]
+  end 
+  d_gross
+end 
+
 
 # Write a method that, given an NDS creates a new Hash
 # The return value should be like:
 #
 # { directorOne => allTheMoneyTheyMade, ... }
 
-def directors_totals(nds)
-  director_index = 0 
-  totals = {}
-  while director_index < nds.length do 
-    director_name = nds[director_index][:name]
-    director_data = nds[director_index]
-    totals[director_name] = gross_for_director(director_data)
-    director_index += 1
-  end
-  totals
-end
 
-#def directors_totals(nds)
- # director_index = 0
-  #totals = {}
-  #while director_index < nds.length do
-  #  director_name = nds[director_index][:name]
-   # totals[director_name] = 0
-  #  movie_index = 0
-   # while movie_index < nds[director_index][:movies].length do
-    #  totals[director_name] += nds[director_index][:movies][movie_index][:worldwide_gross]
-     # movie_index += 1
-  #  end
-   # director_index += 1
-#  end
- # totals
-#end
+def directors_totals(nds)
+  hash = {}
+  nds.each do |director| #starting with passing through an array
+      d_name = director[:name]
+      d_gross = 0 
+      director[:movies].each do |movie| 
+          d_gross += movie[:worldwide_gross]
+      end 
+      hash[d_name] = d_gross
+  end 
+  hash
+end 
+
+
+# def directors_totals(nds)
+#   hash = {}
+#   director_index = 0 
+#   while director_index < nds.length do 
+#     movie_index = 0 
+#     d_gross = 0 
+#     d_name = nds[director_index][:name]
+#     while movie_index < nds[director_index][:movies].length do 
+#       d_gross += nds[director_index][:movies][movie_index][:worldwide_gross]
+#       movie_index += 1 
+#     end 
+#     director_index += 1 
+#     hash[d_name] = d_gross
+#   end
+#   hash
+# end
+
+ 
+
+
 
